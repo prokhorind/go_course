@@ -8,16 +8,16 @@ import (
 	"github.com/NicoNex/echotron/v3"
 )
 
-type EchotronContext struct {
+type EchotronTelegram struct {
 	API     *echotron.API
 	Message *echotron.Message
 }
 
-func (c *EchotronContext) SendMessage(text string) {
+func (c *EchotronTelegram) SendMessage(text string) {
 	c.API.SendMessage(text, c.Message.Chat.ID, nil)
 }
 
-func (c *EchotronContext) ChatID() int64 {
+func (c *EchotronTelegram) ChatID() int64 {
 	return c.Message.Chat.ID
 }
 
@@ -48,7 +48,7 @@ func (b *EchotronBot) Run() {
 		}
 
 		cmd := strings.Fields(text)[0]
-		ctx := &EchotronContext{
+		ctx := &EchotronTelegram{
 			API:     b.api,
 			Message: update.Message,
 		}
