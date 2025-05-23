@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  myapp:
+    build:
+      dockerfile: Dockerfile
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}  # Make sure this is defined in a .env file or shell
