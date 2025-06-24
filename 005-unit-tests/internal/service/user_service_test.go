@@ -2,7 +2,7 @@ package service
 
 import (
 	"errors"
-	"github.com/prokhorind/go_course/005-unit-tests/models"
+	"github.com/prokhorind/go_course/005-unit-tests/internal/models"
 	"testing"
 
 	"github.com/stretchr/testify/assert"

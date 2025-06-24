@@ -1,6 +1,8 @@
 package repo
 
-import "github.com/prokhorind/go_course/005-unit-tests/models"
+import (
+	"github.com/prokhorind/go_course/005-unit-tests/internal/models"
+)
 
 type UserRepo struct{}
 

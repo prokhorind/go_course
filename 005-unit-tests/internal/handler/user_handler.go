@@ -2,7 +2,7 @@ package handler
 
 import (
 	"fmt"
-	"github.com/prokhorind/go_course/005-unit-tests/service"
+	"github.com/prokhorind/go_course/005-unit-tests/internal/service"
 )
 
 type UserHandler struct {
