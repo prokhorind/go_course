@@ -56,3 +56,22 @@ func TestFetchUser_WithFakeRepo_Error(t *testing.T) {
 		t.Errorf("Expected nil user, got: %+v", user)
 	}
 }
+
+func TestFetchUser_AdminAccessDenied_WithFakeRepo(t *testing.T) {
+	fake := &fakeUserRepo{
+		userToReturn: &models.User{ID: 2, Name: "AdminMary"},
+		errToReturn:  nil,
+	}
+
+	svc := NewUserService(fake)
+
+	user, err := svc.FetchUser(2)
+
+	if err == nil || err.Error() != "access to admin users is restricted" {
+		t.Errorf("Expected admin access restriction error, got: %v", err)
+	}
+
+	if user != nil {
+		t.Errorf("Expected nil user, got: %+v", user)
+	}
+}

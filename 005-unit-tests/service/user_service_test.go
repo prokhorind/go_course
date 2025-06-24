@@ -49,3 +49,19 @@ func TestFetchUser_Error(t *testing.T) {
 	assert.Error(t, err)
 	mockRepo.AssertExpectations(t)
 }
+
+func TestFetchUser_AdminAccessDenied(t *testing.T) {
+	mockRepo := new(MockUserRepo)
+	adminUser := &models.User{ID: 5, Name: "AdminJohn"}
+
+	mockRepo.On("GetUserByID", 5).Return(adminUser, nil)
+
+	svc := NewUserService(mockRepo)
+
+	user, err := svc.FetchUser(5)
+
+	assert.Nil(t, user)
+	assert.Error(t, err)
+	assert.EqualError(t, err, "access to admin users is restricted")
+	mockRepo.AssertExpectations(t)
+}
