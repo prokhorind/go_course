@@ -2,14 +2,18 @@ package handler
 
 import (
 	"fmt"
-	"github.com/prokhorind/go_course/005-unit-tests/internal/service"
+	"github.com/prokhorind/go_course/005-unit-tests/internal/models"
 )
 
-type UserHandler struct {
-	svc service.UserService
+type UserService interface {
+	FetchUser(id int) (*models.User, error)
 }
 
-func NewUserHandler(s service.UserService) *UserHandler {
+type UserHandler struct {
+	svc UserService
+}
+
+func NewUserHandler(s UserService) *UserHandler {
 	return &UserHandler{svc: s}
 }
 
