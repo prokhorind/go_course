@@ -96,12 +96,12 @@ terraform init
 terraform apply
 ```
 
-### 4. Get the API Gateway URL
+### 4. Get the  Function Url
 
-After deployment, Terraform will output the API Gateway invoke URL. The webhook URL for Telegram is:
+After deployment, Terraform will output the  Function Url invoke URL. The webhook URL for Telegram is:
 
 ```
-<API_GATEWAY_INVOKE_URL>/bot
+<Function Url>/bot
 ```
 
 Set this URL as the webhook for your Telegram bot:
