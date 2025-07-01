@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "eu-central-1"
+  region = "eu-central-1" # Frankfurt
 }
 
 # IAM Role for Lambda
@@ -40,50 +40,11 @@ resource "aws_lambda_function" "ping" {
   }
 }
 
-
-# Create HTTP API Gateway (HTTP API, v2)
-resource "aws_apigatewayv2_api" "http_api" {
-  name          = "ping-http-api"
-  protocol_type = "HTTP"
+resource "aws_lambda_function_url" "ping_url" {
+  function_name      = aws_lambda_function.ping.function_name
+  authorization_type = "NONE" # Public access for Telegram webhook
 }
 
-# Lambda integration for API Gateway
-resource "aws_apigatewayv2_integration" "lambda_integration" {
-  api_id                 = aws_apigatewayv2_api.http_api.id
-  integration_type       = "AWS_PROXY"
-  integration_uri        = aws_lambda_function.ping.arn
-  integration_method     = "POST"
-  payload_format_version = "2.0"
-}
-
-# Default route to Lambda integration
-resource "aws_apigatewayv2_route" "default_route" {
-  api_id    = aws_apigatewayv2_api.http_api.id
-  route_key = "POST /bot"    # Telegram webhook endpoint path
-  target    = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
-}
-
-# Deployment
-resource "aws_apigatewayv2_stage" "default" {
-  api_id      = aws_apigatewayv2_api.http_api.id
-  name        = "$default"  # default stage for HTTP APIs
-  auto_deploy = true
-}
-
-# Permission for API Gateway to invoke Lambda
-resource "aws_lambda_permission" "apigw_invoke" {
-  statement_id  = "AllowAPIGatewayInvoke"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.ping.function_name
-  principal     = "apigateway.amazonaws.com"
-
-  source_arn = "${aws_apigatewayv2_api.http_api.execution_arn}/*/*"
-}
-
-output "lambda_function_name" {
-  value = aws_lambda_function.ping.function_name
-}
-
-output "api_gateway_invoke_url" {
-  value = aws_apigatewayv2_stage.default.invoke_url
+output "webhook_url" {
+  value = "${aws_lambda_function_url.ping_url.function_url}bot"
 }
