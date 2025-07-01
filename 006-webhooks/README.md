@@ -126,8 +126,7 @@ make clean
 
 - The Lambda uses **custom runtime `provided.al2`**, so the binary must be named `bootstrap`.
 - The Telegram bot logic is shared between both deployments in `internal/botlogic`.
-- API Gateway is configured to forward `POST /bot` requests to the Lambda.
-- This example uses HTTP API Gateway v2 for simpler routing and lower latency.
+- Function Url is configured to forward `POST /bot` requests to the Lambda.
 
 ---
 
