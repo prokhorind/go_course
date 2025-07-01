@@ -29,7 +29,7 @@ resource "aws_lambda_function" "ping" {
   filename         = "../bin/lambda.zip"
   function_name    = "ping"
   handler          = "bootstrap"     # for provided.al2 custom runtime, handler is bootstrap
-  runtime          = "provided.al2"  # <- change here
+  runtime          = "provided.al2"
   role             = aws_iam_role.lambda_role.arn
   source_code_hash = filebase64sha256("../bin/lambda.zip")
 
