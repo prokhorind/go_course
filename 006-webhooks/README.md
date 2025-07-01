@@ -31,7 +31,6 @@ yourproject/
 - AWS CLI configured with appropriate permissions
 - Terraform installed (version 1.0+ recommended)
 - Telegram Bot Token (get it from [BotFather](https://t.me/BotFather))
-- (Optional) Docker if you want to build container images for Lambda (not covered here)
 
 ---
 
