@@ -1,2 +1,6 @@
 /.idea/
 /.env
+/006-webhooks/terraform/.terraform/
+/006-webhooks/terraform/.terraform.lock.hcl
+/006-webhooks/terraform/terraform.tfstate
+/006-webhooks/terraform/terraform.tfstate.backup
